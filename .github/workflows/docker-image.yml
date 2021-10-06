@@ -14,5 +14,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Build the Docker image
+    - name: check file contents
+      run: ls -al
+    - name: Build the Docker image      
       run: docker build . --file Dockerfile --tag remote-dev-cpp:$(date +%s)
