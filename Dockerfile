@@ -3,8 +3,9 @@ FROM ubuntu:18.04
 RUN DEBIAN_FRONTEND="noninteractive" apt-get update && apt-get -y install tzdata \
   software-properties-common \
   lsb-release
-  
-RUN wget --no-check-certificate -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | gpg --dearmor - | tee /etc/apt/trusted.gpg.d/kitware.gpg >/dev/null
+
+COPY kitware-archive-latest.asc ./
+RUN cat ./kitware-archive-latest.asc | gpg --dearmor - | tee /etc/apt/trusted.gpg.d/kitware.gpg >/dev/null
 
 RUN apt-add-repository "deb https://apt.kitware.com/ubuntu/ $(lsb_release -cs) main"
 
