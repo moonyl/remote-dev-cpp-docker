@@ -3,6 +3,13 @@ FROM ubuntu:18.04
 RUN DEBIAN_FRONTEND="noninteractive" apt-get update && apt-get -y install tzdata
 
 RUN apt-get update \
+  && apt-get install -y software-properties-common \
+  lsb-release
+
+RUN wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | gpg --dearmor - | tee /etc/apt/trusted.gpg.d/kitware.gpg >/dev/null \
+  && apt-add-repository "deb https://apt.kitware.com/ubuntu/ $(lsb_release -cs) main"
+
+RUN apt-get update \
   && apt-get install -y ssh \
   build-essential \
   gcc \
