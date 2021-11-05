@@ -14,6 +14,7 @@ RUN apt-get update \
   build-essential \
   gcc \
   g++ \
+  g++-8 \
   gdb \
   clang \
   cmake \
@@ -21,6 +22,10 @@ RUN apt-get update \
   tar \
   python \
   && apt-get clean
+
+RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 70 --slave /usr/bin/g++ g++ /usr/bin/g++-7 --slave /usr/bin/gcov gcov /usr/bin/gcov-7
+RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 80 --slave /usr/bin/g++ g++ /usr/bin/g++-8 --slave /usr/bin/gcov gcov /usr/bin/gcov-8
+RUN update-alternatives --set gcc /usr/bin/gcc-8
 
 RUN ( \
   echo 'PermitRootLogin yes'; \
